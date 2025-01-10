@@ -1,0 +1,206 @@
+﻿@page
+@model LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Log in";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        :root {
+            --gradient-start: #ffffff;
+            --gradient-end: #f0f0f0;
+            --button-gradient-start: #4e73df;
+            --button-gradient-end: #2e59d9;
+            --text-color: #333333;
+            --input-bg: #ffffff;
+            --input-text: #333333;
+            --link-color: #4e73df;
+            --error-color: #ff6b6b;
+            --form-border-color: #ddd;
+            --card-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .split-screen {
+            display: flex;
+            width: 100%;
+        }
+
+        .left {
+            flex: 1;
+            background-image: url('/placeholder.svg?height=1080&width=1920');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+        }
+
+        .right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--card-shadow);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .login-container {
+            width: 100%;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border: 1px solid var(--form-border-color);
+            border-radius: 4px;
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            font-size: 1rem;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--link-color);
+            box-shadow: 0 0 5px var(--link-color);
+        }
+
+        button {
+            margin-top: 2rem;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, var(--button-gradient-start), var(--button-gradient-end));
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.3s ease-in-out;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .signup-link a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group input:invalid {
+            border-color: var(--error-color);
+        }
+
+        img {
+            max-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @@media (max-width: 768px) {
+            .split-screen {
+                flex-direction: column;
+            }
+
+            .left {
+                display: none;
+            }
+
+            .right {
+                padding: 2rem 1rem;
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="split-screen">
+        <div class="left" role="img" aria-label="Decorative background image">
+            <img src="~/assets/images/logos/Login.jpeg"/>
+        </div>
+        <div class="right">
+            <div class="login-container">
+                <h1>Log In</h1>
+                <form id="account" method="post">
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required aria-required="true" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Enter Password" required aria-required="true" />
+                    </div>
+                    <div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log In</button>
+                    </div>
+                </form>
+                <div class="signup-link">
+                    Don't have an account? <a href="/Identity/Account/Register">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
