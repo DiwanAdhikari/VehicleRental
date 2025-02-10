@@ -1,3 +1,184 @@
-﻿<div class="container-fluid mt-3">
-  
+﻿@{
+    ViewData["Title"] = "Dashboard - Vehicle Management System";
+}
+
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-md-10 offset-md-2">
+            <h2 class="mb-4">Dashboard</h2>
+
+            <!-- Summary Cards -->
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card stats-card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Vehicles</h5>
+                            <p class="card-text display-6">120</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card stats-card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Active Vehicles</h5>
+                            <p class="card-text display-6">95</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card stats-card bg-danger text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Inactive Vehicles</h5>
+                            <p class="card-text display-6">25</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="row mt-4">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card chart-card">
+                        <div class="card-header">Vehicle Status Overview</div>
+                        <div class="card-body">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="card chart-card">
+                        <div class="card-header">Monthly Vehicle Usage</div>
+                        <div class="card-body">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Vehicles Table -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">Recent Vehicle Entries</div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Vehicle Name</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Last Service Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Toyota Corolla</td>
+                                            <td>Sedan</td>
+                                            <td><span class="badge bg-success">Active</span></td>
+                                            <td>2024-02-01</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Ford Ranger</td>
+                                            <td>Pickup</td>
+                                            <td><span class="badge bg-danger">Inactive</span></td>
+                                            <td>2023-12-15</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Honda Civic</td>
+                                            <td>Sedan</td>
+                                            <td><span class="badge bg-success">Active</span></td>
+                                            <td>2024-01-10</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- Table Responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End Main Content -->
+    </div>
 </div>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Pie Chart
+        var ctx1 = document.getElementById("pieChart").getContext("2d");
+        new Chart(ctx1, {
+            type: "pie",
+            data: {
+                labels: ["Active", "Inactive"],
+                datasets: [{
+                    data: [95, 25],
+                    backgroundColor: ["#28a745", "#dc3545"]
+                }]
+            }
+        });
+
+        // Bar Chart
+        var ctx2 = document.getElementById("barChart").getContext("2d");
+        new Chart(ctx2, {
+            type: "bar",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                datasets: [{
+                    label: "Vehicles Used",
+                    data: [40, 55, 35, 70, 50, 90],
+                    backgroundColor: "#007bff"
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<!-- Custom CSS -->
+<style>
+    /* Stats Card Styling */
+    .stats-card {
+        border-radius: 10px;
+        text-align: center;
+        padding: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Chart Cards */
+    .chart-card {
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table Responsive */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    /* Responsive Adjustments */
+    @@media (max-width: 768px) {
+        .stats-card {
+            margin-bottom: 15px;
+        }
+        .chart-card {
+            margin-bottom: 15px;
+        }
+    }
+</style>

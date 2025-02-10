@@ -24,31 +24,32 @@
                             <!-- Name Field -->
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label asp-for="Title" class="control-label font-weight-bold"></label>
-                                    <input asp-for="Title" class="form-control" placeholder="Enter Owner name" required />
+                                    <label asp-for="Title" class="control-label font-weight-bold"> Vehicle Name </label>
+                                    <input asp-for="Title" class="form-control" placeholder="Enter Vehicle Name" required />
                                     <span asp-validation-for="Title" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="VehicleOwnerId" class="control-label"></label>
-                                    <select asp-for="VehicleOwnerId" asp-items=" await _Utility.GetVehicleOwner()" class="form-control">
-                                        <option>--	<label asp-for="VehicleOwnerId" class="control-label"></label>--</option>
-                                    </select>
-                                </div> 
-                                <div class="form-group">
-                                    <label asp-for="CategoryId" class="control-label"></label>
+                                    <label>Vehicle Category </label>
                                     <select asp-for="CategoryId" asp-items=" await _Utility.GetVehicleCategory()" class="form-control">
-                                        <option>--	<label asp-for="CategoryId" class="control-label"></label>--</option>
+                                        <option>-Vehicle Category-</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Vehicle Owner </label>
+                                    <select asp-for="VehicleOwnerId" asp-items=" await _Utility.GetVehicleOwner()" class="form-control">
+                                        <option>-Vehicle Owner-</option>
+                                    </select>
+                                </div> 
+                              
 
                                 <div class="form-group">
                                     <label asp-for="Description" class="control-label font-weight-bold"></label>
-                                    <input asp-for="Description" class="form-control" placeholder="Enter Address" required />
+                                    <input asp-for="Description" class="form-control" placeholder="Enter Description" required />
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>    
                                 <div class="form-group">
                                     <label asp-for="RentalPrice" class="control-label font-weight-bold"></label>
-                                    <input asp-for="RentalPrice" class="form-control" placeholder="Enter PhoneNumber" required />
+                                    <input asp-for="RentalPrice" class="form-control" placeholder="Enter Rental Price" required />
                                     <span asp-validation-for="RentalPrice" class="text-danger"></span>
                                 </div>   
                                 <div class="form-group">
@@ -57,8 +58,8 @@
                                     <span asp-validation-for="Availability" class="text-danger"></span>
                                 </div>   
                                 <div class="form-group">
-                                    <label asp-for="Terms" class="control-label font-weight-bold"></label>
-                                    <input asp-for="Terms" class="form-control" placeholder="Enter Email" required />
+                                    <label asp-for="Terms" class="control-label font-weight-bold"> Terms And Conditions </label>
+                                    <input asp-for="Terms" class="form-control" placeholder="Enter Terms And Conditions" required />
                                     <span asp-validation-for="Terms" class="text-danger"></span>
                                 </div>
 
