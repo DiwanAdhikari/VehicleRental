@@ -15,23 +15,23 @@ namespace VehicleRentalSystem.Interface
 
         Task<List<RenterViewModel>> GetAllRenter();
         Task<RenterViewModel> GetRenterById(int? id);
-        Task<ResponseViewModel> InsertUpdateRenter(RenterViewModel model);
+        Task<bool> InsertUpdateRenter(RenterViewModel model);
 
         Task<List<VehicleViewModel>> GetAllVehicles();
         Task<VehicleViewModel> GetVehiclesById(int? id);
-        Task<ResponseViewModel> InsertUpdateVehicle(VehicleViewModel model);
+        Task<bool> InsertUpdateVehicle(VehicleViewModel model);
 
         Task<List<BookingViewModel>> GetAllBooking();
         Task<BookingViewModel> GetBookingById(int? id);
-        Task<ResponseViewModel> InsertUpdateBooking(BookingViewModel model);
+        Task<bool> InsertUpdateBooking(BookingViewModel model);
 
         Task<List<PaymentViewModel>> GetAllPayment();
         Task<PaymentViewModel> GetPaymentById(int? id);
-        Task<ResponseViewModel> InsertUpdatePayment(PaymentViewModel model);
+        Task<bool> InsertUpdatePayment(PaymentViewModel model);
 
 
         Task<List<ReviewViewModel>> GetAllReview();
         Task<ReviewViewModel> GetReviewById(int? id);
-        Task<ResponseViewModel> InsertUpdateReview(ReviewViewModel model);
+        Task<bool> InsertUpdateReview(ReviewViewModel model);
     }
 }

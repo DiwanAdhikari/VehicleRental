@@ -43,7 +43,7 @@ namespace VehicleRentalSystem.Controllers
         }
         #endregion
 
-        #region Category
+        #region Owner
         public async Task<IActionResult> OwnerIndex()
         {
             return View(await _common.GetAllOwner());
@@ -66,6 +66,62 @@ namespace VehicleRentalSystem.Controllers
                 {
                     TempData["msg"] = "success";
                     return RedirectToAction("OwnerIndex");
+                }
+            }
+            return View(model);
+        }
+        #endregion 
+        #region VehicleRenter
+        public async Task<IActionResult> VehicleRenterIndex()
+        {
+            return View(await _common.GetAllRenter());
+        }
+        public async Task<IActionResult> CreateVehicleRenter(int id = 0)
+        {
+            return View(await _common.GetRenterById(id));
+        }
+        public async Task<IActionResult> VehicleRenterDetails(int id = 0)
+        {
+            return View(await _common.GetRenterById(id));
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateVehicleRenter(RenterViewModel model)
+        {
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (ModelState.IsValid)
+            {
+                if (await _common.InsertUpdateRenter(model))
+                {
+                    TempData["msg"] = "success";
+                    return RedirectToAction("OwnerIndex");
+                }
+            }
+            return View(model);
+        }
+        #endregion   
+        #region Vehicle
+        public async Task<IActionResult> VehicleIndex()
+        {
+            return View(await _common.GetAllVehicles());
+        }
+        public async Task<IActionResult> CreateVehicle(int id = 0)
+        {
+            return View(await _common.GetVehiclesById(id));
+        }
+        public async Task<IActionResult> VehicleDetails(int id = 0)
+        {
+            return View(await _common.GetVehiclesById(id));
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateVehicle(VehicleViewModel model)
+        {
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (ModelState.IsValid)
+            {
+                if (await _common.InsertUpdateVehicle(model))
+                {
+                    TempData["msg"] = "success";
+                    return RedirectToAction("VehicleIndex");
                 }
             }
             return View(model);

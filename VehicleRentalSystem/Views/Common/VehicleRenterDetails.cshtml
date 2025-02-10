@@ -1,0 +1,49 @@
+﻿@model RenterViewModel
+    <style>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        .details {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+        }
+    </style>
+
+    <div class="container">
+        <h2>Vehicle Owner Details</h2>
+        <img src="{{ ProfilePictureUrl ?? 'default-profile.png' }}" alt="Profile Picture" class="profile-picture">
+
+        <div class="details">
+            <p><strong>Full Name:</strong>  @Model.Name </p>
+            <p><strong>Phone Number:</strong> @Model.PhoneNumber </p>
+            <p><strong>Email:</strong> {{ @Model.Email }}</p>
+            <p><strong>Address:</strong> {{ @Model.Address }}</p>
+            <p><strong>Gender:</strong> {{@Model.GenderName }}</p>
+        </div>
+    </div>

@@ -27,6 +27,14 @@ namespace VehicleRentalSystem.Utilities
         {
             return new SelectList(await _context.Gender.ToListAsync(), "Id", "Name"); ;
         }
+        public async Task<SelectList> GetVehicleOwner()
+        {
+            return new SelectList(await _context.VehicleOwner.ToListAsync(), "Id", "FullName"); ;
+        }  
+        public async Task<SelectList> GetVehicleCategory()
+        {
+            return new SelectList(await _context.Category.ToListAsync(), "Id", "Name"); ;
+        }
         public async Task<FileUploadViewModel> UploadImgReturnPathAndName(string folderName, IFormFile file)
         {
             try

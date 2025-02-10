@@ -144,6 +144,7 @@ namespace VehicleRentalSystem.Repository
             }
         }
         #endregion
+
         #region VehicleRenter
         public async Task<List<RenterViewModel>> GetAllRenter()
         {
@@ -180,9 +181,9 @@ namespace VehicleRentalSystem.Repository
                     ProfilePictureUrl = x.ProfilePicture,
                 }).FirstOrDefaultAsync() ?? new RenterViewModel();
         }
-        public async Task<ResponseViewModel> InsertUpdateRenter(RenterViewModel model)
+        public async Task<bool> InsertUpdateRenter(RenterViewModel model)
         {
-            ResponseViewModel response = new ResponseViewModel();
+            
             var img = await _utility.UploadImgReturnPathAndName("Gaunpalika", model.ProfilePicture);
             try
             {
@@ -199,6 +200,7 @@ namespace VehicleRentalSystem.Repository
                         owner.CitizenshipNumber = model.CitizenshipNumber;
                         owner.DateOfBirth = model.DateOfBirth;
                         owner.LicenseNumber = model.LicenseNumber;
+                        owner.ProfilePicture = img.FilePath;
                         _context.Entry(owner).State = EntityState.Modified;
                     }
                 }
@@ -214,21 +216,22 @@ namespace VehicleRentalSystem.Repository
                         CitizenshipNumber = model.CitizenshipNumber,
                         LicenseNumber = model.LicenseNumber,
                         DateOfBirth = model.DateOfBirth,
-
+                        ProfilePicture=img.FilePath,
 
                     };
                     await _context.Renter.AddAsync(renteradd);
                     await _context.SaveChangesAsync();
                 }
                 await _context.SaveChangesAsync();
-                return response;
+                return true;
             }
             catch (Exception ex)
             {
-                return response;
+                return false;
             }
         }
         #endregion
+
         #region VehicleRegister
         public async Task<List<VehicleViewModel>> GetAllVehicles()
         {
@@ -260,9 +263,9 @@ namespace VehicleRentalSystem.Repository
                     ImageUrl = x.ImageUrl,
                 }).FirstOrDefaultAsync() ?? new VehicleViewModel();
         }
-        public async Task<ResponseViewModel> InsertUpdateVehicle(VehicleViewModel model)
+        public async Task<bool> InsertUpdateVehicle(VehicleViewModel model)
         {
-            ResponseViewModel response = new ResponseViewModel();
+           
             try
             {
                 if (model.Id > 0)
@@ -296,11 +299,11 @@ namespace VehicleRentalSystem.Repository
                     await _context.SaveChangesAsync();
                 }
                 await _context.SaveChangesAsync();
-                return response;
+                return true;
             }
             catch (Exception ex)
             {
-                return response;
+                return false;
             }
         }
         #endregion
@@ -333,9 +336,9 @@ namespace VehicleRentalSystem.Repository
                     Status = x.Status,
                 }).FirstOrDefaultAsync() ?? new BookingViewModel();
         }
-        public async Task<ResponseViewModel> InsertUpdateBooking(BookingViewModel model)
+        public async Task<bool> InsertUpdateBooking(BookingViewModel model)
         {
-            ResponseViewModel response = new ResponseViewModel();
+        
             try
             {
                 if (model.Id > 0)
@@ -367,11 +370,11 @@ namespace VehicleRentalSystem.Repository
                     await _context.SaveChangesAsync();
                 }
                 await _context.SaveChangesAsync();
-                return response;
+                return true;
             }
             catch (Exception ex)
             {
-                return response;
+                return false;
             }
         }
         #endregion  
@@ -401,9 +404,9 @@ namespace VehicleRentalSystem.Repository
                     PaymentMethod = x.PaymentMethod,
                 }).FirstOrDefaultAsync() ?? new PaymentViewModel();
         }
-        public async Task<ResponseViewModel> InsertUpdatePayment(PaymentViewModel model)
+        public async Task<bool> InsertUpdatePayment(PaymentViewModel model)
         {
-            ResponseViewModel response = new ResponseViewModel();
+           
             try
             {
                 if (model.Id > 0)
@@ -431,11 +434,11 @@ namespace VehicleRentalSystem.Repository
                     await _context.SaveChangesAsync();
                 }
                 await _context.SaveChangesAsync();
-                return response;
+                return true;
             }
             catch (Exception ex)
             {
-                return response;
+                return false;
             }
         }
         #endregion 
@@ -464,7 +467,7 @@ namespace VehicleRentalSystem.Repository
                     VehicleId = x.Vehicle.Id,
                 }).FirstOrDefaultAsync() ?? new ReviewViewModel();
         }
-        public async Task<ResponseViewModel> InsertUpdateReview(ReviewViewModel model)
+        public async Task<bool> InsertUpdateReview(ReviewViewModel model)
         {
             ResponseViewModel response = new ResponseViewModel();
             try
@@ -494,13 +497,14 @@ namespace VehicleRentalSystem.Repository
                     await _context.SaveChangesAsync();
                 }
                 await _context.SaveChangesAsync();
-                return response;
+                return true;
             }
             catch (Exception ex)
             {
-                return response;
+                return false;
             }
         }
+
         #endregion
     }
 }
