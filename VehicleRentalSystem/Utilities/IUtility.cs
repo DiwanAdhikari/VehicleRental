@@ -7,6 +7,7 @@ namespace VehicleRentalSystem.Utilities
     {
         Task<string> GetGenderName(int id);
         Task<FileUploadViewModel> UploadImgReturnPathAndName(string folderName, IFormFile img);
+        Task<SelectList> GetGender();
     }
 }
  

@@ -2,7 +2,7 @@
 @model RegisterModel
 @{
     Layout = null;
-    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -197,8 +197,8 @@
                     <h2>Create a new account.</h2>
                     <hr />
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                    <label asp-for="Input.FullName">FullName</label>
                     <div class="form-floating mb-3">
+                    <label asp-for="Input.FullName">FullName</label>
                         <input asp-for="Input.FullName" class="form-control" autocomplete="username" aria-required="true" placeholder="FullName" />
                         <span asp-validation-for="Input.FullName" class="text-danger"></span>
                     </div>

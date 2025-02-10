@@ -37,9 +37,9 @@ namespace VehicleRentalSystem.Repository
                     Name = x.Name,
                 }).FirstOrDefaultAsync() ?? new CategoryViewModel();
         }
-        public async Task<ResponseViewModel> InsertUpdate(CategoryViewModel model)
+        public async Task<bool> InsertUpdate(CategoryViewModel model)
         {
-            ResponseViewModel response = new ResponseViewModel();
+           
             try
             {
                 if (model.Id > 0)
@@ -62,11 +62,11 @@ namespace VehicleRentalSystem.Repository
                     await _context.SaveChangesAsync();
                 }
                 await _context.SaveChangesAsync();
-                return response;
+                return true;
             }
             catch (Exception ex)
             {
-                return response;
+                return false;
             }
         }
         #endregion
@@ -100,10 +100,10 @@ namespace VehicleRentalSystem.Repository
                     ProfilePictureUrl = x.ProfilePicture,
                 }).FirstOrDefaultAsync() ?? new VehicleOwnerViewModel();
         }
-        public async Task<ResponseViewModel> InsertUpdateOwner(VehicleOwnerViewModel model)
+        public async Task<bool> InsertUpdateOwner(VehicleOwnerViewModel model)
         {
-            ResponseViewModel response = new ResponseViewModel();
-            var img = await _utility.UploadImgReturnPathAndName("Gaunpalika", model.ProfilePicture);
+           
+            var img = await _utility.UploadImgReturnPathAndName("Owner", model.ProfilePicture);
             try
             {
                 if (model.Id > 0)
@@ -136,11 +136,11 @@ namespace VehicleRentalSystem.Repository
                     await _context.SaveChangesAsync();
                 }
                 await _context.SaveChangesAsync();
-                return response;
+                return true;
             }
             catch (Exception ex)
             {
-                return response;
+                return false;
             }
         }
         #endregion

@@ -14,6 +14,8 @@ namespace VehicleRentalSystem.Models
     {
 
         public int Id { get; set; }
+        [Required(ErrorMessage = "Field is required.")]
+        [RegularExpression(@"\S.*", ErrorMessage = "Field cannot contain only spaces.")]
         public string Name { get; set; }
     }
 

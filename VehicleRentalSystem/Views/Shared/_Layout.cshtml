@@ -1,59 +1,77 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modernize Free</title>
-    <link rel="shortcut icon" type="image/png" href="~/images/logos/favicon.png" />
-    <link href="~/assets/css/styles.css" rel="stylesheet" />
-    <link href="~/assets/css/styles.min.css" rel="stylesheet" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="Theme-name" content="quixlab" />
+    <title>Quixlab - Bootstrap Admin Dashboard</title>
+    <link href="~/Theme/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <link href="~/Theme/plugins/chartist/css/chartist.min.css" rel="stylesheet" />
+    <link href="~/Theme/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css" rel="stylesheet" />
+    <link href="~/Theme/css/style.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!--  Body Wrapper -->
-    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-         data-sidebar-position="fixed" data-header-position="fixed">
-
-        <!-- Sidebar Start -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="./index.html" class="text-nowrap logo-img">
-                        <img src="../assets/images/logos/dark-logo.svg" width="180" alt="" />
-                    </a>
-                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i class="ti ti-x fs-8"></i>
-                    </div>
-                </div>
-                <!-- Sidebar navigation-->
-                <partial name="_SideMenuBar" />
-                <!-- End Sidebar navigation -->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="index.html">
+                    <b class="logo-abbr"><img src="~/Theme/images/logo.png" /></b>
+                    <span class="logo-compact"><img src="~/Theme/images/logo-compact.png" /></span>
+                    <span class="brand-title"><img src="~/Theme/images/logo-text.png" /></span>
+                </a>
             </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!--  Sidebar End -->
-        <!--  Main wrapper -->
-        <div class="body-wrapper">
-            <!--  Header Start -->
-            <header class="app-header">
+        </div>
+        <div class="header">
+            <div class="header-content clearfix">
                 <partial name="_Header" />
-            </header>
-            <!--  Header End -->
-            <div class="container-fluid">
-                @RenderBody()
+            </div>
+        </div>
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <partial name="_SideMenuBar" />
+            </div>
+        </div>
+        <div class="content-body">
+
+            @RenderBody()
+        </div>
+        <div class="footer">
+            <div class="copyright">
+                <p>&copy; Designed & Developed by <a href="https://Themeforest.net/user/quixlab">Quixlab</a> 2018</p>
             </div>
         </div>
     </div>
-    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="~/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/assets/js/sidebarmenu.js"></script>
-    <script src="~/assets/js/app.min.js"></script>
-    <script src="~/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="~/assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="~/assets/js/dashboard.js"></script>
+
+    <script src="~/Theme/plugins/common/common.min.js"></script>
+    <script src="~/Theme/js/custom.min.js"></script>
+    <script src="~/Theme/js/settings.js"></script>
+    <script src="~/Theme/js/gleek.js"></script>
+    <script src="~/Theme/js/styleswitcher.js"></script>
+    <script src="~/Theme/plugins/chart.js/chart.bundle.min.js"></script>
+    <script src="~/Theme/plugins/circle-progress/circle-progress.min.js"></script>
+    <script src="~/Theme/plugins/d3v3/index.js"></script>
+    <script src="~/Theme/plugins/topojson/topojson.min.js"></script>
+    <script src="~/Theme/plugins/datamaps/datamaps.world.min.js"></script>
+    <script src="~/Theme/plugins/raphael/raphael.min.js"></script>
+    <script src="~/Theme/plugins/morris/morris.min.js"></script>
+    <script src="~/Theme/plugins/moment/moment.min.js"></script>
+    <script src="~/Theme/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+    <script src="~/Theme/plugins/chartist/js/chartist.min.js"></script>
+    <script src="~/Theme/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+    <script src="~/Theme/js/dashboard/dashboard-1.js"></script>
+    <script src="~/Theme/plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="~/Theme/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Theme/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
 </body>
-
 </html>

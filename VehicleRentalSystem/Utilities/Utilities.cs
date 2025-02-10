@@ -23,6 +23,10 @@ namespace VehicleRentalSystem.Utilities
         {
             return  await _context.Gender.Where(x => x.Id == id).Select(x => x.Name).FirstOrDefaultAsync();
         }
+        public async Task<SelectList> GetGender()
+        {
+            return new SelectList(await _context.Gender.ToListAsync(), "Id", "Name"); ;
+        }
         public async Task<FileUploadViewModel> UploadImgReturnPathAndName(string folderName, IFormFile file)
         {
             try

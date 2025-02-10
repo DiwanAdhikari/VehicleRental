@@ -18,30 +18,59 @@ namespace VehicleRentalSystem.Controllers
             _context = context;
 
         }
+        #region Category
         public async Task<IActionResult> CategoryIndex()
         {
             return View(await _common.GetAllCategory());
         }
-        public async Task<IActionResult> Create(int id = 0)
+        public async Task<IActionResult> CreateCategory(int id = 0)
         {
             return View(await _common.GetCategoryById(id));
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CategoryViewModel model)
+        public async Task<IActionResult> CreateCategory(CategoryViewModel model)
         {
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (ModelState.IsValid)
             {
-                var response = await _common.InsertUpdate(model);
-                if (response.Status)
+                if (await _common.InsertUpdate(model))
                 {
-                    TempData["success"] = "Successful";
-                    return RedirectToAction("Index");
+                    TempData["msg"] = "success";
+                    return RedirectToAction("CategoryIndex");
                 }
             }
-            TempData["error"] = "Try again";
             return View(model);
-
         }
+        #endregion
+
+        #region Category
+        public async Task<IActionResult> OwnerIndex()
+        {
+            return View(await _common.GetAllOwner());
+        }
+        public async Task<IActionResult> CreateOwner(int id = 0)
+        {
+            return View(await _common.GetVehicleOwenerById(id));
+        }
+        public async Task<IActionResult> OwnerDetails(int id = 0)
+        {
+            return View(await _common.GetVehicleOwenerById(id));
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateOwner(VehicleOwnerViewModel model)
+        {
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (ModelState.IsValid)
+            {
+                if (await _common.InsertUpdateOwner(model))
+                {
+                    TempData["msg"] = "success";
+                    return RedirectToAction("OwnerIndex");
+                }
+            }
+            return View(model);
+        }
+        #endregion
     }
 }
+

@@ -6,11 +6,11 @@ namespace VehicleRentalSystem.Interface
     {
         Task<List<CategoryViewModel>> GetAllCategory();
         Task<CategoryViewModel> GetCategoryById(int? id);
-        Task<ResponseViewModel> InsertUpdate(CategoryViewModel model);
+        Task<bool> InsertUpdate(CategoryViewModel model);
 
         Task<List<VehicleOwnerViewModel>> GetAllOwner();
         Task<VehicleOwnerViewModel> GetVehicleOwenerById(int? id);
-        Task<ResponseViewModel> InsertUpdateOwner(VehicleOwnerViewModel model);
+        Task<bool> InsertUpdateOwner(VehicleOwnerViewModel model);
 
 
         Task<List<RenterViewModel>> GetAllRenter();
