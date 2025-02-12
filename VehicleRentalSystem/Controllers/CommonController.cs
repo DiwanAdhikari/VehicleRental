@@ -42,7 +42,6 @@ namespace VehicleRentalSystem.Controllers
             return View(model);
         }
         #endregion
-
         #region Owner
         public async Task<IActionResult> OwnerIndex()
         {
@@ -57,7 +56,7 @@ namespace VehicleRentalSystem.Controllers
             return View(await _common.GetVehicleOwenerById(id));
         }
         [HttpPost]
-        public async Task<IActionResult> CreateOwner(VehicleOwnerViewModel model)
+        public async Task<IActionResult> CreateOwner([FromForm] VehicleOwnerViewModel model)
         {
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (ModelState.IsValid)
@@ -69,6 +68,11 @@ namespace VehicleRentalSystem.Controllers
                 }
             }
             return View(model);
+        }
+        public async Task<IActionResult> DeleteOwner(int id)
+        {
+            TempData["Msg"] = await _common.DeleteOwner(id) ? "Deleted Successfully!!" : "Try Again Later";
+            return RedirectToAction("OwnerIndex");
         }
         #endregion 
         #region VehicleRenter
@@ -122,6 +126,34 @@ namespace VehicleRentalSystem.Controllers
                 {
                     TempData["msg"] = "success";
                     return RedirectToAction("VehicleIndex");
+                }
+            }
+            return View(model);
+        }
+        #endregion
+        #region Booking
+        public async Task<IActionResult> BookingIndex()
+        {
+            return View(await _common.GetAllBooking());
+        }
+        public async Task<IActionResult> Booking(int id = 0)
+        {
+            return View(await _common.GetBookingById(id));
+        }
+        public async Task<IActionResult> BookingDetails(int id = 0)
+        {
+            return View(await _common.GetVehiclesById(id));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Booking(BookingViewModel model)
+        {
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (ModelState.IsValid)
+            {
+                if (await _common.InsertUpdateBooking(model))
+                {
+                    TempData["msg"] = "success";
+                    return RedirectToAction("BookingIndex");
                 }
             }
             return View(model);

@@ -237,20 +237,20 @@ namespace VehicleRentalSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedBy")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("RenterId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
@@ -262,6 +262,28 @@ namespace VehicleRentalSystem.Migrations
                     b.HasIndex("VehicleId");
 
                     b.ToTable("Booking");
+                });
+
+            modelBuilder.Entity("VehicleRentalSystem.Data.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brand");
                 });
 
             modelBuilder.Entity("VehicleRentalSystem.Data.Category", b =>
@@ -346,6 +368,9 @@ namespace VehicleRentalSystem.Migrations
                     b.Property<int>("GenderId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LicenseNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -414,6 +439,9 @@ namespace VehicleRentalSystem.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("RentalPrice")
                         .HasColumnType("decimal(18, 2)");
 
@@ -428,12 +456,48 @@ namespace VehicleRentalSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VehicleOwnerId");
-
                     b.ToTable("Vehicle");
                 });
 
-            modelBuilder.Entity("VehicleRentalSystem.Data.VehicleOwner", b =>
+            modelBuilder.Entity("VehicleRentalSystem.Data.VehicleDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BillbookImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillbookNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("ProductionYear")
+                        .HasColumnType("date");
+
+                    b.Property<string>("RegistrationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VehicleOwnerBasicInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VehiclePhotos")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("VehicleOwnerBasicInfoId");
+
+                    b.ToTable("VehicleDetails");
+                });
+
+            modelBuilder.Entity("VehicleRentalSystem.Data.VehicleOwnerBasicInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -444,6 +508,9 @@ namespace VehicleRentalSystem.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -453,17 +520,17 @@ namespace VehicleRentalSystem.Migrations
                     b.Property<int>("GenderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("ProfilePicture")
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GenderId");
 
-                    b.ToTable("VehicleOwner");
+                    b.ToTable("VehicleOwnerBasicInfo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -577,18 +644,26 @@ namespace VehicleRentalSystem.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("VehicleRentalSystem.Data.Vehicle", b =>
+            modelBuilder.Entity("VehicleRentalSystem.Data.VehicleDetails", b =>
                 {
-                    b.HasOne("VehicleRentalSystem.Data.VehicleOwner", "Owner")
+                    b.HasOne("VehicleRentalSystem.Data.Brand", "Brand")
                         .WithMany()
-                        .HasForeignKey("VehicleOwnerId")
+                        .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Owner");
+                    b.HasOne("VehicleRentalSystem.Data.VehicleOwnerBasicInfo", "VehicleOwnerBasicInfo")
+                        .WithMany()
+                        .HasForeignKey("VehicleOwnerBasicInfoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("VehicleOwnerBasicInfo");
                 });
 
-            modelBuilder.Entity("VehicleRentalSystem.Data.VehicleOwner", b =>
+            modelBuilder.Entity("VehicleRentalSystem.Data.VehicleOwnerBasicInfo", b =>
                 {
                     b.HasOne("VehicleRentalSystem.Data.Gender", "Gender")
                         .WithMany()

@@ -15,59 +15,113 @@
         <div class="col-lg-6 col-md-8 col-sm-12">
             <div class="card shadow-lg">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Create Owner</h5>
+                  <form asp-action="CreateOwner" enctype="multipart/form-data">
+                        <input asp-for="VehicleOwnerId" type="hidden" />
 
-                    <form asp-action="CreateOwner">
-                        <input asp-for="Id" type="hidden" />
+                       
+                        <div id="step1">
+                            <h5 class="card-title text-center">Create Owner</h5>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label asp-for="FullName" class="control-label font-weight-bold"></label>
+                                        <input asp-for="FullName" class="form-control" placeholder="Enter Owner name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Address" class="control-label font-weight-bold"></label>
+                                        <input asp-for="Address" class="form-control" placeholder="Enter Address" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber" class="control-label font-weight-bold"></label>
+                                        <input asp-for="PhoneNumber" class="form-control" placeholder="Enter PhoneNumber" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="control-label font-weight-bold"></label>
+                                        <input asp-for="Email" class="form-control" placeholder="Enter Email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="GenderId" class="control-label"></label>
+                                        <select asp-for="GenderId" asp-items="await _Utility.GetGender()" class="form-control">
+                                            <option value="">-- Select Gender --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div class="row">
-                            <!-- Name Field -->
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label asp-for="FullName" class="control-label font-weight-bold"></label>
-                                    <input asp-for="FullName" class="form-control" placeholder="Enter Owner name" required />
-                                    <span asp-validation-for="FullName" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Address" class="control-label font-weight-bold"></label>
-                                    <input asp-for="Address" class="form-control" placeholder="Enter Address" required />
-                                    <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>    
-                                <div class="form-group">
-                                    <label asp-for="PhoneNumber" class="control-label font-weight-bold"></label>
-                                    <input asp-for="PhoneNumber" class="form-control" placeholder="Enter PhoneNumber" required />
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                </div>   
-                                <div class="form-group">
-                                    <label asp-for="Email" class="control-label font-weight-bold"></label>
-                                    <input asp-for="Email" class="form-control" placeholder="Enter Email" required />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label asp-for="GenderId" class="control-label"></label>
-                                    <select asp-for="GenderId" asp-items=" await _Utility.GetGender()" class="form-control">
-                                        <option>--	<label asp-for="GenderId" class="control-label"></label>--</option>
-                                    </select>
-                                </div>
+                            <!-- Next Button -->
+                            <div class="d-flex justify-content-end mt-3">
+                                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
                             </div>
                         </div>
 
-                        <!-- Form Buttons -->
-                        <div class="d-flex justify-content-between mt-3">
-                            <a asp-action="CategoryIndex" class="btn btn-warning">
-                                <i class="fa fa-angle-left"></i> Back
-                            </a>
-                            <button type="submit" class="btn btn-success">
-                                <i class="fa fa-save"></i> Create
-                            </button>
+                        <!-- Step 2: Vehicle Details (Initially Hidden) -->
+                        <div id="step2" class="d-none">
+                            <h5 class="card-title text-center"> Owner Vehicle Information </h5>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label asp-for="BrandId" class="control-label"></label>
+                                        <select asp-for="BrandId" asp-items="await _Utility.GetBrands()" class="form-control">
+                                            <option value="">-- Select Brand --</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="BillbookNumber" class="control-label font-weight-bold"></label>
+                                        <input asp-for="BillbookNumber" class="form-control" placeholder="Enter Billbook Number" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="ProductionYear" class="control-label font-weight-bold"></label>
+                                        <input asp-for="ProductionYear" class="form-control" placeholder="Enter Production Year" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="RegistrationNumber" class="control-label font-weight-bold"></label>
+                                        <input asp-for="RegistrationNumber" class="form-control" placeholder="Enter Registration Number" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="BillbookImageURL" class="control-label fw-bold"></label>
+                                        <input type="file" asp-for="BillbookImageURL" class="form-control" accept="image/png, image/gif, image/jpeg, application/pdf" />
+                                        <img src="@Model.BillbookImage" alt="Image Description" class="img-fluid" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="VehiclePhotos" class="control-label fw-bold"></label>
+                                        <input type="file" asp-for="VehiclePhotosURL" class="form-control" accept="image/png, image/gif, image/jpeg, application/pdf" />
+                                        <img src="@Model.VehiclePhotos" alt="Image Description" class="img-fluid" />
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Navigation Buttons -->
+                            <div class="d-flex justify-content-between mt-3">
+                                <button type="button" class="btn btn-secondary" id="prevBtn">Previous</button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-save"></i> Create
+                                </button>
+                            </div>
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            // Show Step 2 and Hide Step 1
+            $("#nextBtn").click(function () {
+                $("#step1").addClass("d-none");
+                $("#step2").removeClass("d-none");
+            });
+
+            // Show Step 1 and Hide Step 2
+            $("#prevBtn").click(function () {
+                $("#step2").addClass("d-none");
+                $("#step1").removeClass("d-none");
+            });
+        });
+    </script>
 }

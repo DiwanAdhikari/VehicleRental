@@ -27,13 +27,25 @@ namespace VehicleRentalSystem.Utilities
         {
             return new SelectList(await _context.Gender.ToListAsync(), "Id", "Name"); ;
         }
-        public async Task<SelectList> GetVehicleOwner()
-        {
-            return new SelectList(await _context.VehicleOwner.ToListAsync(), "Id", "FullName"); ;
-        }  
+        //public async Task<SelectList> GetVehicleOwner()
+        //{
+        //    return new SelectList(await _context.VehicleOwner.ToListAsync(), "Id", "FullName"); ;
+        //}  
         public async Task<SelectList> GetVehicleCategory()
         {
             return new SelectList(await _context.Category.ToListAsync(), "Id", "Name"); ;
+        } 
+        public async Task<SelectList> GetVehicles()
+        {
+            return new SelectList(await _context.Vehicle.ToListAsync(), "Id", "Title"); ;
+        }
+        public async Task<SelectList> GetVehicleRenters()
+        {
+            return new SelectList(await _context.Renter.ToListAsync(), "Id", "Name"); ;
+        } 
+        public async Task<SelectList> GetBrands()
+        {
+            return new SelectList(await _context.Brand.ToListAsync(), "Id", "Name"); ;
         }
         public async Task<FileUploadViewModel> UploadImgReturnPathAndName(string folderName, IFormFile file)
         {
@@ -69,5 +81,11 @@ namespace VehicleRentalSystem.Utilities
                 return null;
             }
         }
+
+        public Task<SelectList> GetVehicleOwner()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

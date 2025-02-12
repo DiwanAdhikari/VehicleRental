@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using System.Security.Claims;
 using VehicleRentalSystem.Data;
 using VehicleRentalSystem.Interface;
 using VehicleRentalSystem.Models;
@@ -12,11 +15,12 @@ namespace VehicleRentalSystem.Repository
     {
         private readonly ApplicationDbContext _context;
         private readonly IUtility _utility;
-
-        public CommonRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<CommonRepository> logger, IUtility utility)
+        private readonly string _userId = null;
+        public CommonRepository(ApplicationDbContext context, IHttpContextAccessor httpContext, ILogger<CommonRepository> logger, IUtility utility)
         {
             _context = context;
             _utility = utility;
+            _userId = httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
         #region Category
         public async Task<List<CategoryViewModel>> GetAllCategory()
@@ -39,7 +43,7 @@ namespace VehicleRentalSystem.Repository
         }
         public async Task<bool> InsertUpdate(CategoryViewModel model)
         {
-           
+
             try
             {
                 if (model.Id > 0)
@@ -70,85 +74,99 @@ namespace VehicleRentalSystem.Repository
             }
         }
         #endregion
-        #region VehicleOwner
-        public async Task<List<VehicleOwnerViewModel>> GetAllOwner()
-        {
-            return await _context.VehicleOwner
-                .Select(x => new VehicleOwnerViewModel()
-                {
-                    Id = x.Id,
-                    FullName = x.FullName,
-                    PhoneNumber = x.PhoneNumber,
-                    Email = x.Email,
-                    Address = x.Address,
-                    GenderName = x.Gender.Name,
-                    ProfilePictureUrl = x.ProfilePicture,
-                }).ToListAsync();
-        }
-        public async Task<VehicleOwnerViewModel> GetVehicleOwenerById(int? id)
-        {
-            return await _context.VehicleOwner.Where(x => x.Id == id)
-                .Select(x => new VehicleOwnerViewModel()
-                {
-                    Id = x.Id,
-                    FullName = x.FullName,
-                    PhoneNumber = x.PhoneNumber,
-                    Email = x.Email,
-                    Address = x.Address,
-                    GenderId = x.GenderId,
-                    GenderName = x.Gender.Name,
-                    ProfilePictureUrl = x.ProfilePicture,
-                }).FirstOrDefaultAsync() ?? new VehicleOwnerViewModel();
-        }
-        public async Task<bool> InsertUpdateOwner(VehicleOwnerViewModel model)
-        {
-           
-            var img = await _utility.UploadImgReturnPathAndName("Owner", model.ProfilePicture);
-            try
-            {
-                if (model.Id > 0)
-                {
-                    var owner = await _context.VehicleOwner.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
-                    if (owner != null)
-                    {
-                        owner.FullName = model.FullName;
-                        owner.PhoneNumber = model.PhoneNumber;
-                        owner.Email = model.Email;
-                        owner.Address = model.Address;
-                        owner.GenderId = model.GenderId;
-                        owner.ProfilePicture = img.FilePath;
-                        _context.Entry(owner).State = EntityState.Modified;
-                    }
-                }
-                else
-                {
-                    var owneradd = new VehicleOwner()
-                    {
-                        FullName = model.FullName,
-                        PhoneNumber = model.PhoneNumber,
-                        Email = model.Email,
-                        Address = model.Address,
-                        GenderId = model.GenderId,
-                        ProfilePicture = img.FilePath,
+        //#region VehicleOwner
+        //public async Task<List<VehicleOwnerViewModel>> GetAllOwner()
+        //{
+        //    return await _context.VehicleOwner.Where(x=>x.IsActive==true)
+        //        .Select(x => new VehicleOwnerViewModel()
+        //        {
+        //            Id = x.Id,
+        //            FullName = x.FullName,
+        //            PhoneNumber = x.PhoneNumber,
+        //            Email = x.Email,
+        //            Address = x.Address,
+        //            GenderName = x.Gender.Name,
+        //            ProfilePictureUrl = x.ProfilePicture,
+        //            IsActive = x.IsActive,
+        //        }).ToListAsync();
+        //}
+        //public async Task<VehicleOwnerViewModel> GetVehicleOwenerById(int? id)
+        //{
+        //    return await _context.VehicleOwner.Where(x => x.Id == id)
+        //        .Select(x => new VehicleOwnerViewModel()
+        //        {
+        //            Id = x.Id,
+        //            FullName = x.FullName,
+        //            PhoneNumber = x.PhoneNumber,
+        //            Email = x.Email,
+        //            Address = x.Address,
+        //            GenderId = x.GenderId,
+        //            GenderName = x.Gender.Name,
+        //            ProfilePictureUrl = x.ProfilePicture,
+        //            IsActive = x.IsActive,
+        //        }).FirstOrDefaultAsync() ?? new VehicleOwnerViewModel();
+        //}
+        //public async Task<bool> InsertUpdateOwner(VehicleOwnerViewModel model)
+        //{
 
-                    };
-                    await _context.VehicleOwner.AddAsync(owneradd);
-                    await _context.SaveChangesAsync();
-                }
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-        #endregion
+        //    var img = await _utility.UploadImgReturnPathAndName("Owner", model.ProfilePicture);
+        //    try
+        //    {
+        //        if (model.Id > 0)
+        //        {
+        //            var owner = await _context.VehicleOwner.Where(x => x.Id == model.Id).FirstOrDefaultAsync();
+        //            if (owner != null)
+        //            {
+        //                owner.FullName = model.FullName;
+        //                owner.PhoneNumber = model.PhoneNumber;
+        //                owner.Email = model.Email;
+        //                owner.Address = model.Address;
+        //                owner.GenderId = model.GenderId;
+        //                owner.ProfilePicture = img.FilePath;
+        //                _context.Entry(owner).State = EntityState.Modified;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            var owneradd = new VehicleOwner()
+        //            {
+        //                FullName = model.FullName,
+        //                PhoneNumber = model.PhoneNumber,
+        //                Email = model.Email,
+        //                Address = model.Address,
+        //                GenderId = model.GenderId,
+        //                ProfilePicture = img.FilePath,
+        //                IsActive=true,
 
+        //            };
+        //            await _context.VehicleOwner.AddAsync(owneradd);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        await _context.SaveChangesAsync();
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
+        //public async Task<bool> DeleteOwner(int id)
+        //{
+        //    var data = await _context.VehicleOwner.FirstOrDefaultAsync(x => x.Id == id);
+        //    if (data != null)
+        //    {
+        //        data.IsActive = false;
+        //        _context.Entry(data).State = EntityState.Modified;
+        //        await _context.SaveChangesAsync();
+        //        return true;
+        //    }
+        //    return false;
+        //}
+        //#endregion
         #region VehicleRenter
         public async Task<List<RenterViewModel>> GetAllRenter()
         {
-            return await _context.Renter
+            return await _context.Renter.Where(x => x.IsActive == true)
                 .Select(x => new RenterViewModel()
                 {
                     Id = x.Id,
@@ -179,11 +197,12 @@ namespace VehicleRentalSystem.Repository
                     GenderId = x.GenderId,
                     GenderName = x.Gender.Name,
                     ProfilePictureUrl = x.ProfilePicture,
+                    IsActive = x.IsActive,
                 }).FirstOrDefaultAsync() ?? new RenterViewModel();
         }
         public async Task<bool> InsertUpdateRenter(RenterViewModel model)
         {
-            
+
             var img = await _utility.UploadImgReturnPathAndName("Gaunpalika", model.ProfilePicture);
             try
             {
@@ -216,8 +235,8 @@ namespace VehicleRentalSystem.Repository
                         CitizenshipNumber = model.CitizenshipNumber,
                         LicenseNumber = model.LicenseNumber,
                         DateOfBirth = model.DateOfBirth,
-                        ProfilePicture=img.FilePath,
-
+                        ProfilePicture = img.FilePath,
+                        IsActive = true,
                     };
                     await _context.Renter.AddAsync(renteradd);
                     await _context.SaveChangesAsync();
@@ -231,11 +250,10 @@ namespace VehicleRentalSystem.Repository
             }
         }
         #endregion
-
         #region VehicleRegister
         public async Task<List<VehicleViewModel>> GetAllVehicles()
         {
-            return await _context.Vehicle
+            return await _context.Vehicle.Where(x => x.IsActive == true)
                 .Select(x => new VehicleViewModel()
                 {
                     Id = x.Id,
@@ -261,11 +279,12 @@ namespace VehicleRentalSystem.Repository
                     Availability = x.Availability,
                     Terms = x.Terms,
                     ImageUrl = x.ImageUrl,
+                    IsActive = x.IsActive,
                 }).FirstOrDefaultAsync() ?? new VehicleViewModel();
         }
         public async Task<bool> InsertUpdateVehicle(VehicleViewModel model)
         {
-           
+
             try
             {
                 if (model.Id > 0)
@@ -294,6 +313,7 @@ namespace VehicleRentalSystem.Repository
                         RentalPrice = model.RentalPrice,
                         Availability = model.Availability,
                         Terms = model.Terms,
+                        IsActive = true,
                     };
                     await _context.Vehicle.AddAsync(addvehicle);
                     await _context.SaveChangesAsync();
@@ -307,7 +327,6 @@ namespace VehicleRentalSystem.Repository
             }
         }
         #endregion
-
         #region Booking
         public async Task<List<BookingViewModel>> GetAllBooking()
         {
@@ -320,7 +339,9 @@ namespace VehicleRentalSystem.Repository
                     StartDate = x.StartDate,
                     EndDate = x.EndDate,
                     Status = x.Status,
-
+                    CreatedBy = _context.Users.Where(a => a.Id == x.CreatedBy).Select(a => a.FullName).FirstOrDefault(),
+                    VehicleName = x.Vehicle.Title,
+                    RenterName = x.Renter.Name,
                 }).ToListAsync();
         }
         public async Task<BookingViewModel> GetBookingById(int? id)
@@ -338,7 +359,7 @@ namespace VehicleRentalSystem.Repository
         }
         public async Task<bool> InsertUpdateBooking(BookingViewModel model)
         {
-        
+
             try
             {
                 if (model.Id > 0)
@@ -350,7 +371,7 @@ namespace VehicleRentalSystem.Repository
                         book.RenterId = model.RenterId;
                         book.StartDate = model.StartDate;
                         book.EndDate = model.EndDate;
-                        book.Status = model.Status;
+                        book.Status = true;
                         _context.Entry(book).State = EntityState.Modified;
                     }
                 }
@@ -362,8 +383,8 @@ namespace VehicleRentalSystem.Repository
                         RenterId = model.RenterId,
                         StartDate = model.StartDate,
                         EndDate = model.EndDate,
-                        Status = model.Status,
-                        CreatedBy = model.CreatedBy,
+                        Status = true,
+                        CreatedBy = _userId,
 
                     };
                     await _context.Booking.AddAsync(booking);
@@ -378,7 +399,6 @@ namespace VehicleRentalSystem.Repository
             }
         }
         #endregion  
-
         #region Payment
         public async Task<List<PaymentViewModel>> GetAllPayment()
         {
@@ -406,7 +426,7 @@ namespace VehicleRentalSystem.Repository
         }
         public async Task<bool> InsertUpdatePayment(PaymentViewModel model)
         {
-           
+
             try
             {
                 if (model.Id > 0)
@@ -469,7 +489,7 @@ namespace VehicleRentalSystem.Repository
         }
         public async Task<bool> InsertUpdateReview(ReviewViewModel model)
         {
-            ResponseViewModel response = new ResponseViewModel();
+            
             try
             {
                 if (model.Id > 0)
@@ -503,6 +523,134 @@ namespace VehicleRentalSystem.Repository
             {
                 return false;
             }
+        }
+
+        public async Task<List<VehicleOwnerViewModel>> GetAllOwner()
+        {
+            return await _context.VehicleOwnerBasicInfo
+              .Select(x => new VehicleOwnerViewModel()
+              {
+                  VehicleOwnerId=x.Id,
+                  FullName = x.FullName,
+                  DateOfBirth = x.DateOfBirth,
+                  Email = x.Email,
+                  PhoneNumber = x.PhoneNumber,
+                  Address = x.Address,
+                  GenderName = x.Gender.Name,
+              }).ToListAsync();
+
+        }
+
+        public async Task<VehicleOwnerViewModel> GetVehicleOwenerById(int? id)
+        {
+            VehicleOwnerViewModel model = new VehicleOwnerViewModel();
+            var data = await (
+ from basic in _context.VehicleOwnerBasicInfo
+ join details in _context.VehicleDetails on basic.Id equals details.VehicleOwnerBasicInfoId into ownerdetails
+ from detail in ownerdetails.DefaultIfEmpty()
+ where basic.Id == id
+ select new VehicleOwnerViewModel
+ {
+     FullName = basic.FullName,
+     DateOfBirth = basic.DateOfBirth,
+     Email = basic.Email,
+     PhoneNumber = basic.PhoneNumber,
+     Address = basic.Address,
+     GenderName = basic.Gender.Name,
+     GenderId = basic.GenderId,
+     IsActive = basic.IsActive,
+     BrandId = detail.BrandId,
+     BrandName = detail.Brand.Name,
+     BillbookNumber = detail.BillbookNumber,
+     ProductionYear = detail.ProductionYear,
+     RegistrationNumber = detail.RegistrationNumber,
+     VehiclePhotos=detail.VehiclePhotos,
+     BillbookImage=detail.BillbookImage,
+ }).FirstOrDefaultAsync();
+            return data ?? new VehicleOwnerViewModel();
+
+        }
+
+        public async Task<bool> InsertUpdateOwner(VehicleOwnerViewModel model)
+        {
+           
+                try
+                {
+                    if (model.VehicleOwnerId > 0)
+                    {
+                        var data = await _context.VehicleOwnerBasicInfo.FirstOrDefaultAsync(x => x.Id == model.VehicleOwnerId);
+                        if (data != null)
+                        {
+                            data.FullName = model.FullName;
+                            data.DateOfBirth = model.DateOfBirth;
+                            data.Email = model.Email;
+                            data.GenderId=model.GenderId;
+                            data.PhoneNumber = model.PhoneNumber;
+                            data.Address = model.Address;
+                            data.IsActive = model.IsActive;
+                           _context.Entry(data).State = EntityState.Modified;
+                        }
+                        var details = await _context.VehicleDetails.Where(x => x.VehicleOwnerBasicInfoId == model.VehicleOwnerId).FirstOrDefaultAsync();
+                        if (details != null)
+                        {
+                            details.VehicleOwnerBasicInfoId = model.VehicleOwnerId;
+                            details.BrandId=model.BrandId;
+                            details.BillbookNumber = model.BillbookNumber;
+                            details.ProductionYear = model.ProductionYear;
+                            details.RegistrationNumber = model.RegistrationNumber;
+                            details.BillbookImage = _utility.UploadImgReturnPathAndName("Billbook", model.BillbookImageURL).Result.FilePath;
+                            details.VehiclePhotos = _utility.UploadImgReturnPathAndName("VehiclePhotos", model.VehiclePhotosURL).Result.FilePath;
+
+                            _context.Entry(details).State = EntityState.Modified;
+                        }
+
+                    }
+                    else
+                    {
+                       var Billbook = await _utility.UploadImgReturnPathAndName("Billbook", model.BillbookImageURL);
+                       var VehiclePhotos = await _utility.UploadImgReturnPathAndName("VehiclePhotos", model.VehiclePhotosURL);
+
+                        var VehicleOwnerBasicInfo = new VehicleOwnerBasicInfo()
+                        {
+                            FullName = model.FullName,
+                            DateOfBirth = model.DateOfBirth,
+                            Email = model.Email,
+                            GenderId = model.GenderId,
+                            PhoneNumber = model.PhoneNumber,
+                            Address = model.Address,
+                            IsActive = true,
+                        };
+                        await _context.VehicleOwnerBasicInfo.AddAsync(VehicleOwnerBasicInfo);
+                        _context.SaveChanges();
+                        var VehicleDetails = new VehicleDetails()
+                        {
+                            VehicleOwnerBasicInfoId=VehicleOwnerBasicInfo.Id,
+                            BrandId=model.BrandId,
+                            BillbookNumber=model.BillbookNumber,
+                            ProductionYear=model.ProductionYear,
+                            RegistrationNumber=model.RegistrationNumber,
+                            BillbookImage=Billbook.FilePath,
+                            VehiclePhotos=Billbook.FilePath,
+                        };
+                        await _context.VehicleDetails.AddAsync(VehicleDetails);
+                        _context.SaveChanges();
+                    }
+                    await _context.SaveChangesAsync();
+                   
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    
+                    return false;
+
+                }
+            
+        }
+               
+        public Task<bool> DeleteOwner(int id)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

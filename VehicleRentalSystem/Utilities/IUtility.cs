@@ -10,6 +10,9 @@ namespace VehicleRentalSystem.Utilities
         Task<SelectList> GetGender();
         Task<SelectList> GetVehicleOwner();
         Task<SelectList> GetVehicleCategory();
+        Task<SelectList> GetVehicles();
+        Task<SelectList> GetVehicleRenters();
+        Task<SelectList> GetBrands();
     }
 }
  

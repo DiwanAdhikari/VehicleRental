@@ -55,6 +55,10 @@ wwwroot\Account\lib\jquery-validation\LICENSE.md
 wwwroot\Account\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\Account\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\Account\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\images\Billbook\712a5556-5f82-42e4-9ecb-3256a8e25493.png
+wwwroot\images\Billbook\94ab807b-72bd-436b-bc98-6639340970ba.png
+wwwroot\images\VehiclePhotos\6659f015-7114-4da2-b25b-1237ab9fb4e8.png
+wwwroot\images\VehiclePhotos\991a09c5-872b-4fc0-994a-de119ea941b6.png
 wwwroot\Theme\css\bootstrap.min.css
 wwwroot\Theme\css\demo.css
 wwwroot\Theme\css\demo.css.map
@@ -508,6 +512,7 @@ wwwroot\Theme\images\imgs\9.png
 wwwroot\Theme\images\l-dark.png
 wwwroot\Theme\images\loader.gif
 wwwroot\Theme\images\logo.png
+wwwroot\Theme\images\logo.png-
 wwwroot\Theme\images\logo-compact.png
 wwwroot\Theme\images\logo-text.png
 wwwroot\Theme\images\logo-white.png

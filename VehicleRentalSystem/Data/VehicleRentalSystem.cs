@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VehicleRentalSystem.Data
@@ -14,21 +15,45 @@ namespace VehicleRentalSystem.Data
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-    }
-
-    public class VehicleOwner
+    } 
+    public class Brand
     {
         [Key]
         public int Id { get; set; }
-        public int GenderId { get; set; }
+        public int CategoryId { get; set; }
+        public string Name { get; set; }
+        public string Details { get; set; }
+    }
 
+    public class VehicleOwnerBasicInfo
+    {
+        [Key]
+        public int Id { get; set; }     
         public string FullName { get; set; }
-        public string PhoneNumber { get; set; }
+        public DateOnly DateOfBirth { get; set; }
         public string Email { get; set; }
-        public string Address { get; set; }
-        public string ProfilePicture { get; set; }
+        public int GenderId { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Address { get; set; }        
+        public bool IsActive { get; set; }
         [ForeignKey("GenderId")]
         public Gender Gender { get; set; }
+    }
+   
+    public class VehicleDetails
+    {
+        public int Id { get; set; }
+        public int VehicleOwnerBasicInfoId { get; set; }
+        public int BrandId { get; set; }
+        public string BillbookNumber { get; set; }
+        public string BillbookImage { get; set; }
+        public DateOnly ProductionYear { get; set; }
+        public string RegistrationNumber { get; set; }
+        public string VehiclePhotos { get; set; }
+        [ForeignKey("VehicleOwnerBasicInfoId")]
+        public VehicleOwnerBasicInfo VehicleOwnerBasicInfo { get; set; }
+        [ForeignKey("BrandId")]
+        public Brand Brand { get; set; }
     }
     public class Renter
     {
@@ -43,6 +68,7 @@ namespace VehicleRentalSystem.Data
         public string Address { get; set; }
         public string ProfilePicture { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public bool IsActive { get; set; }
         [ForeignKey("GenderId")]
         public Gender Gender { get; set; }
      
@@ -61,9 +87,8 @@ namespace VehicleRentalSystem.Data
         public string Availability { get; set; } 
         public string Terms { get; set; }
         public string ImageUrl { get; set; }
-        [ForeignKey("VehicleOwnerId")]
-     
-        public VehicleOwner Owner { get; set; }
+        public bool IsActive { get; set; }
+      
 
     }
   
@@ -73,10 +98,11 @@ namespace VehicleRentalSystem.Data
         public int Id { get; set; }
         public int VehicleId { get; set; }
         public int RenterId { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Status { get; set; } 
-        public DateTime CreatedBy { get; set; }
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
+        public bool Status { get; set; } 
+        public string CreatedBy { get; set; }
+
         [ForeignKey("VehicleId")]
       
         public Vehicle Vehicle { get; set; }
@@ -92,6 +118,7 @@ namespace VehicleRentalSystem.Data
         public decimal Amount { get; set; }
         public string PaymentMethod { get; set; }
         public DateTime PaymentDate { get; set; }
+     
         [ForeignKey("BookingId")]
         public Booking Booking { get; set; }
     }

@@ -11,7 +11,7 @@ namespace VehicleRentalSystem.Interface
         Task<List<VehicleOwnerViewModel>> GetAllOwner();
         Task<VehicleOwnerViewModel> GetVehicleOwenerById(int? id);
         Task<bool> InsertUpdateOwner(VehicleOwnerViewModel model);
-
+        Task<bool> DeleteOwner(int id);
 
         Task<List<RenterViewModel>> GetAllRenter();
         Task<RenterViewModel> GetRenterById(int? id);
