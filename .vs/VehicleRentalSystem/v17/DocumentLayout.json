@@ -1,0 +1,125 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Projects\\Vehicle\\VehicleRental\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5E0DF516-747D-4581-A9E6-670C0C8589DB}|VehicleRentalSystem\\VehicleRentalSystem.csproj|d:\\projects\\vehicle\\vehiclerental\\vehiclerentalsystem\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5E0DF516-747D-4581-A9E6-670C0C8589DB}|VehicleRentalSystem\\VehicleRentalSystem.csproj|solutionrelative:vehiclerentalsystem\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E0DF516-747D-4581-A9E6-670C0C8589DB}|VehicleRentalSystem\\VehicleRentalSystem.csproj|d:\\projects\\vehicle\\vehiclerental\\vehiclerentalsystem\\areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5E0DF516-747D-4581-A9E6-670C0C8589DB}|VehicleRentalSystem\\VehicleRentalSystem.csproj|solutionrelative:vehiclerentalsystem\\areas\\identity\\pages\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E0DF516-747D-4581-A9E6-670C0C8589DB}|VehicleRentalSystem\\VehicleRentalSystem.csproj|d:\\projects\\vehicle\\vehiclerental\\vehiclerentalsystem\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5E0DF516-747D-4581-A9E6-670C0C8589DB}|VehicleRentalSystem\\VehicleRentalSystem.csproj|solutionrelative:vehiclerentalsystem\\views\\shared\\_header.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E0DF516-747D-4581-A9E6-670C0C8589DB}|VehicleRentalSystem\\VehicleRentalSystem.csproj|d:\\projects\\vehicle\\vehiclerental\\vehiclerentalsystem\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5E0DF516-747D-4581-A9E6-670C0C8589DB}|VehicleRentalSystem\\VehicleRentalSystem.csproj|solutionrelative:vehiclerentalsystem\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "VehicleRentalSystem\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "VehicleRentalSystem\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABgAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:07:26.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Header.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\Views\\Shared\\_Header.cshtml",
+              "RelativeDocumentMoniker": "VehicleRentalSystem\\Views\\Shared\\_Header.cshtml",
+              "ToolTip": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\Views\\Shared\\_Header.cshtml",
+              "RelativeToolTip": "VehicleRentalSystem\\Views\\Shared\\_Header.cshtml",
+              "ViewState": "AQIAAHcAAAAAAAAAAAAWwIEAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T17:06:22.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "VehicleRentalSystem\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ToolTip": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "RelativeToolTip": "VehicleRentalSystem\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+              "ViewState": "AQIAAKsAAAAAAAAAAAAqwMkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T16:39:29.242Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "5fb929bf-4701-4926-ba1d-5d5218480c1e",
+        "Display": 1,
+        "X": 515,
+        "Y": 7,
+        "Width": 999,
+        "Height": 627,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "VehicleRentalSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "ToolTip": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "RelativeToolTip": "VehicleRentalSystem\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+              "ViewState": "AQIAAK4AAAAAAAAAAAAmwM8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-10T16:35:44.248Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

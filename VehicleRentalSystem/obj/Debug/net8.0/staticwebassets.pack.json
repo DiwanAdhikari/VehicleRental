@@ -1729,6 +1729,10 @@
       "PackagePath": "staticwebassets\\Theme\\icons\\weather-icons\\fonts\\weathericons-regular-webfont.woff2"
     },
     {
+      "Id": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\wwwroot\\Theme\\images\\Login.jpg",
+      "PackagePath": "staticwebassets\\Theme\\images\\Login.jpg"
+    },
+    {
       "Id": "D:\\Projects\\Vehicle\\VehicleRental\\VehicleRentalSystem\\wwwroot\\Theme\\images\\avatar\\1.jpg",
       "PackagePath": "staticwebassets\\Theme\\images\\avatar\\1.jpg"
     },
