@@ -33,5 +33,10 @@ namespace VehicleRentalSystem.Interface
         Task<List<ReviewViewModel>> GetAllReview();
         Task<ReviewViewModel> GetReviewById(int? id);
         Task<bool> InsertUpdateReview(ReviewViewModel model);
+
+        Task<List<BrandViewModel>> GetAllBrand();
+        Task<BrandViewModel> GetBrandById(int? id);
+        Task<bool> InsertUpdateBrand(BrandViewModel model);
+
     }
 }

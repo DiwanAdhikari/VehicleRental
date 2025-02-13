@@ -374,6 +374,9 @@ namespace VehicleRentalSystem.Migrations
                     b.Property<string>("LicenseNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("LicensePhoto")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 

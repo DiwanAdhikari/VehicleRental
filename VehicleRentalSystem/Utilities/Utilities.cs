@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using VehicleRentalSystem.Data;
 using VehicleRentalSystem.Models;
 
@@ -12,11 +13,15 @@ namespace VehicleRentalSystem.Utilities
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public Utilities(ApplicationDbContext context, IWebHostEnvironment webHost, IHttpContextAccessor httpContextAccessor)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public Utilities(ApplicationDbContext context, 
+            IWebHostEnvironment webHost, 
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             _context = context;
             _webHostEnvironment = webHost;
-
+            _httpContextAccessor = httpContextAccessor;
 
         }
         public async Task<string> GetGenderName(int id)
@@ -46,6 +51,10 @@ namespace VehicleRentalSystem.Utilities
         public async Task<SelectList> GetBrands()
         {
             return new SelectList(await _context.Brand.ToListAsync(), "Id", "Name"); ;
+        }
+        public async Task<SelectList> GetCategories()
+        {
+            return new SelectList(await _context.Category.ToListAsync(), "Id", "Name"); ;
         }
         public async Task<FileUploadViewModel> UploadImgReturnPathAndName(string folderName, IFormFile file)
         {
@@ -85,6 +94,11 @@ namespace VehicleRentalSystem.Utilities
         public Task<SelectList> GetVehicleOwner()
         {
             throw new NotImplementedException();
+        }
+        public async Task<string> GetLoginUserIdAsync()
+        {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return await _context.Users.Select(x => x.Id).FirstOrDefaultAsync();
         }
 
     }

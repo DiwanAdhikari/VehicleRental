@@ -23,6 +23,8 @@ namespace VehicleRentalSystem.Data
         public int CategoryId { get; set; }
         public string Name { get; set; }
         public string Details { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
     }
 
     public class VehicleOwnerBasicInfo
@@ -65,6 +67,7 @@ namespace VehicleRentalSystem.Data
         public string Email { get; set; }
         public int GenderId { get; set; }
         public string LicenseNumber { get; set; }
+        public string LicensePhoto { get; set; }
         public string Address { get; set; }
         public string ProfilePicture { get; set; }
         public DateTime DateOfBirth { get; set; }

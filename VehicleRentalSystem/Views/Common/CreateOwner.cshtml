@@ -1,137 +1,207 @@
-﻿@model VehicleOwnerViewModel
+﻿@{
+    Layout = null;
+}
+@model VehicleOwnerViewModel
 @inject IUtility _Utility
 
-<div class="row page-titles mx-0">
-    <div class="col p-md-0">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
-        </ol>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Owner Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8 col-sm-12">
-            <div class="card shadow-lg">
-                <div class="card-body">
-                  <form asp-action="CreateOwner" enctype="multipart/form-data">
-                        <input asp-for="VehicleOwnerId" type="hidden" />
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-                       
-                        <div id="step1">
-                            <h5 class="card-title text-center">Create Owner</h5>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label asp-for="FullName" class="control-label font-weight-bold"></label>
-                                        <input asp-for="FullName" class="form-control" placeholder="Enter Owner name" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="Address" class="control-label font-weight-bold"></label>
-                                        <input asp-for="Address" class="form-control" placeholder="Enter Address" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="PhoneNumber" class="control-label font-weight-bold"></label>
-                                        <input asp-for="PhoneNumber" class="form-control" placeholder="Enter PhoneNumber" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="Email" class="control-label font-weight-bold"></label>
-                                        <input asp-for="Email" class="form-control" placeholder="Enter Email" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="GenderId" class="control-label"></label>
-                                        <select asp-for="GenderId" asp-items="await _Utility.GetGender()" class="form-control">
-                                            <option value="">-- Select Gender --</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-                            <!-- Next Button -->
-                            <div class="d-flex justify-content-end mt-3">
-                                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
-                            </div>
-                        </div>
+        h5 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
 
-                        <!-- Step 2: Vehicle Details (Initially Hidden) -->
-                        <div id="step2" class="d-none">
-                            <h5 class="card-title text-center"> Owner Vehicle Information </h5>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label asp-for="BrandId" class="control-label"></label>
-                                        <select asp-for="BrandId" asp-items="await _Utility.GetBrands()" class="form-control">
-                                            <option value="">-- Select Brand --</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="BillbookNumber" class="control-label font-weight-bold"></label>
-                                        <input asp-for="BillbookNumber" class="form-control" placeholder="Enter Billbook Number" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="ProductionYear" class="control-label font-weight-bold"></label>
-                                        <input asp-for="ProductionYear" class="form-control" placeholder="Enter Production Year" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="RegistrationNumber" class="control-label font-weight-bold"></label>
-                                        <input asp-for="RegistrationNumber" class="form-control" placeholder="Enter Registration Number" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="BillbookImageURL" class="control-label fw-bold"></label>
-                                        <input type="file" asp-for="BillbookImageURL" class="form-control" accept="image/png, image/gif, image/jpeg, application/pdf" />
-                                        <img src="@Model.BillbookImage" alt="Image Description" class="img-fluid" />
+        .form-group {
+            margin-bottom: 10px;
+        }
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="VehiclePhotos" class="control-label fw-bold"></label>
-                                        <input type="file" asp-for="VehiclePhotosURL" class="form-control" accept="image/png, image/gif, image/jpeg, application/pdf" />
-                                        <img src="@Model.VehiclePhotos" alt="Image Description" class="img-fluid" />
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
 
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <label>Password</label>
-                                        <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                                        <span asp-validation-for="Password" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <label asp-for="ConfirmPassword">Confirm Password</label>
-                                        <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-                            <!-- Navigation Buttons -->
-                            <div class="d-flex justify-content-between mt-3">
-                                <button type="button" class="btn btn-secondary" id="prevBtn">Previous</button>
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-save"></i> Create
-                                </button>
-                            </div>
-                        </div>
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
 
-                    </form>
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form asp-action="CreateOwner" enctype="multipart/form-data">
+            <input asp-for="VehicleOwnerId" type="hidden" />
+            <input asp-for="OwnerRoleId" type="hidden" />
+
+            <!-- Step 1: Basic Info -->
+            <div id="step1">
+                <h5>Vehicle Owner Registration</h5>
+
+                <div class="form-group">
+                    <label asp-for="FullName">Full Name</label>
+                    <input asp-for="FullName" placeholder="Enter Owner Name" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address">Address</label>
+                    <input asp-for="Address" placeholder="Enter Address" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber">Phone Number</label>
+                    <input asp-for="PhoneNumber" placeholder="Enter Phone Number" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" placeholder="Enter Email" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="GenderId">Gender</label>
+                    <select asp-for="GenderId" asp-items="await _Utility.GetGender()">
+                        <option value="">-- Select Gender --</option>
+                    </select>
+                </div>
+
+                <!-- Next Button -->
+                <div class="btn-container">
+                    <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-@section Scripts {
+            <!-- Step 2: Vehicle Details -->
+            <div id="step2" class="hidden">
+                <h5>Owner Vehicle Information</h5>
+
+                <div class="form-group">
+                    <label asp-for="BrandId">Brand</label>
+                    <select asp-for="BrandId" asp-items="await _Utility.GetBrands()">
+                        <option value="">-- Select Brand --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BillbookNumber">Billbook Number</label>
+                    <input asp-for="BillbookNumber" placeholder="Enter Billbook Number" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductionYear">Production Year</label>
+                    <input asp-for="ProductionYear" placeholder="Enter Production Year" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="RegistrationNumber">Registration Number</label>
+                    <input asp-for="RegistrationNumber" placeholder="Enter Registration Number" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BillbookImageURL">Upload Billbook Image</label>
+                    <input type="file" asp-for="BillbookImageURL" accept="image/png, image/gif, image/jpeg, application/pdf" />
+                    <img src="@Model.BillbookImage" alt="Billbook Image" class="img-fluid" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="VehiclePhotos">Upload Vehicle Photo</label>
+                    <input type="file" asp-for="VehiclePhotosURL" accept="image/png, image/gif, image/jpeg, application/pdf" />
+                    <img src="@Model.VehiclePhotos" alt="Vehicle Photo" class="img-fluid" />
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input asp-for="Password" type="password" placeholder="Enter Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" type="password" placeholder="Confirm Password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" id="prevBtn">Previous</button>
+                    <button type="submit" class="btn btn-success">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <script>
-        $(document).ready(function () {
-            // Show Step 2 and Hide Step 1
-            $("#nextBtn").click(function () {
-                $("#step1").addClass("d-none");
-                $("#step2").removeClass("d-none");
+        document.addEventListener("DOMContentLoaded", function () {
+            let step1 = document.getElementById("step1");
+            let step2 = document.getElementById("step2");
+
+            document.getElementById("nextBtn").addEventListener("click", function () {
+                step1.classList.add("hidden");
+                step2.classList.remove("hidden");
             });
 
-            // Show Step 1 and Hide Step 2
-            $("#prevBtn").click(function () {
-                $("#step2").addClass("d-none");
-                $("#step1").removeClass("d-none");
+            document.getElementById("prevBtn").addEventListener("click", function () {
+                step2.classList.add("hidden");
+                step1.classList.remove("hidden");
             });
         });
     </script>
-}
+
+</body>
+</html>

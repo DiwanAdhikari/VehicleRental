@@ -13,6 +13,8 @@ namespace VehicleRentalSystem.Utilities
         Task<SelectList> GetVehicles();
         Task<SelectList> GetVehicleRenters();
         Task<SelectList> GetBrands();
+        Task<SelectList> GetCategories();
+        Task<string> GetLoginUserIdAsync();
     }
 }
  

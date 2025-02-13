@@ -42,6 +42,21 @@ namespace VehicleRentalSystem.Models
         public string ProfilePictureUrl { get; set; }
         public IFormFile ProfilePicture { get; set; }
         public bool IsActive { get; set; }
+        public string LicensePhoto { get; set; }
+        public IFormFile LicensePhotoPath { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+        public string RenterRole { get; set; }
+        public string RenterRoleId { get; set; }
 
 
     }
@@ -102,6 +117,7 @@ namespace VehicleRentalSystem.Models
     }
     public class BrandViewModel
     {
+        public int Id { get; set; }
         public int CategoryId { get; set; }
         public string Name { get; set; }
         public string Details { get; set; }
@@ -178,6 +194,8 @@ namespace VehicleRentalSystem.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public string OwnerRole { get; set; }
+        public string OwnerRoleId { get; set; }
     }
 
 

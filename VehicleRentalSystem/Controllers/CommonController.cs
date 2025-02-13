@@ -42,11 +42,37 @@ namespace VehicleRentalSystem.Controllers
             return View(model);
         }
         #endregion
+        #region Brand
+        public async Task<IActionResult> BrandIndex()
+        {
+            return View(await _common.GetAllBrand());
+        }
+        public async Task<IActionResult> CreateBrand(int id = 0)
+        {
+            return View(await _common.GetBrandById(id));
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateBrand(BrandViewModel model)
+        {
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (ModelState.IsValid)
+            {
+                if (await _common.InsertUpdateBrand(model))
+                {
+                    TempData["msg"] = "success";
+                    return RedirectToAction("BrandIndex");
+                }
+            }
+            return View(model);
+        }
+        #endregion
+
         #region Owner
         public async Task<IActionResult> OwnerIndex()
         {
             return View(await _common.GetAllOwner());
         }
+        [AllowAnonymous]
         public async Task<IActionResult> CreateOwner(int id = 0)
         {
             return View(await _common.GetVehicleOwenerById(id));
@@ -55,6 +81,7 @@ namespace VehicleRentalSystem.Controllers
         {
             return View(await _common.GetVehicleOwenerById(id));
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateOwner([FromForm] VehicleOwnerViewModel model)
         {
